@@ -1,0 +1,132 @@
+/* Preloader Styles */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #2D4EF5;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: default;
+    pointer-events: all;
+}
+
+#preloader-content {
+    text-align: center;
+    position: relative;
+    cursor: default;
+    user-select: none;
+}
+
+#logo-icon {
+    margin: 0 auto 60px;
+    position: relative;
+    font-size: 8rem;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1;
+    font-family: 'Poppins', sans-serif;
+}
+
+#loading-bar-container {
+    width: 250px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 50px auto 0;
+    position: relative;
+}
+
+#loading-bar {
+    width: 0%;
+    height: 100%;
+    background: #ffffff;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: visible;
+}
+
+#loading-highlight {
+    position: absolute;
+    width: 40px;
+    height: 8px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0) 100%);
+    filter: blur(3px);
+    pointer-events: none;
+}
+
+#loading-counter {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.05em;
+    margin-top: 20px;
+    opacity: 0.9;
+}
+
+#brand-text-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    cursor: default;
+    user-select: none;
+}
+
+#brand-text {
+    font-size: 5rem;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+#big-x {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: 100vw;
+    font-weight: 900;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    z-index: 10001;
+    opacity: 0;
+    line-height: 0.8;
+    cursor: default;
+    user-select: none;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    #logo-icon {
+        font-size: 5rem;
+        margin-bottom: 40px;
+    }
+    #loading-bar-container {
+        width: 200px;
+    }
+    #loading-counter {
+        font-size: 1.2rem;
+    }
+    #brand-text {
+        font-size: 3rem;
+    }
+    #big-x {
+        font-size: 100vw;
+    }
+}

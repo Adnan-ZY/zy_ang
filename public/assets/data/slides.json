@@ -1,0 +1,32 @@
+[
+  {
+    "image": "assets/images/farm-to-home.png",
+    "description": "Hitachi unifies governance and access for ~480,000 global users.",
+    "metrics": [
+      { "value": "1,500", "label": "applications authenticated with Okta" },
+      { "value": "41", "label": "tons of CO2 per year reduced" }
+    ],
+    "link": "#",
+    "linkText": "See full story"
+  },
+  {
+    "image": "assets/images/norizan-aircond.png",
+    "description": "Connecting the workforce with secure, scalable identity solutions.",
+    "metrics": [
+      { "value": "10k+", "label": "active daily users" },
+      { "value": "99%", "label": "uptime guarantee" }
+    ],
+    "link": "#",
+    "linkText": "See full story"
+  },
+  {
+    "image": "assets/images/p.png",
+    "description": "Streamlining access for partners and customers globally.",
+    "metrics": [
+      { "value": "5M", "label": "external identities" },
+      { "value": "24/7", "label": "support coverage" }
+    ],
+    "link": "#",
+    "linkText": "See full story"
+  }
+]
