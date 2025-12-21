@@ -16,12 +16,9 @@ export class ThemeService {
       this.isDarkMode.set(false);
       document.documentElement.classList.remove('dark');
     } else {
-      // Check system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      this.isDarkMode.set(prefersDark);
-      if (prefersDark) {
-        document.documentElement.classList.add('dark');
-      }
+      // Default to light theme
+      this.isDarkMode.set(false);
+      document.documentElement.classList.remove('dark');
     }
   }
 
