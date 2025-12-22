@@ -1,32 +1,32 @@
 [
   {
-    "image": "assets/images/farm-to-home.png",
-    "description": "Hitachi unified access for 480k users.",
+    "image": "assets/images/zypherx-build.png",
+    "description": "Production-grade web platforms built for speed, security, and long-term maintainability.",
     "metrics": [
-      { "value": "1,500", "label": "apps with Okta" },
-      { "value": "41", "label": "tons CO2 saved" }
+      { "value": "Clean code", "label": "no shortcuts" },
+      { "value": "Ownership", "label": "fully yours" }
     ],
     "link": "#",
-    "linkText": "See full story"
+    "linkText": "See architecture"
   },
   {
-    "image": "assets/images/norizan-aircond.png",
-    "description": "Secure, scalable workforce access.",
+    "image": "assets/images/zypherx-operate.png",
+    "description": "Internal tools and desktop applications that remove bottlenecks and keep teams operational.",
     "metrics": [
-      { "value": "10k+", "label": "daily users" },
-      { "value": "99%", "label": "uptime" }
+      { "value": "99.99%", "label": "system stability" },
+      { "value": "Zero", "label": "operational chaos" }
     ],
     "link": "#",
-    "linkText": "See full story"
+    "linkText": "View systems"
   },
   {
-    "image": "assets/images/p.png",
-    "description": "Streamlined global partner access.",
+    "image": "assets/images/zypherx-scale.png",
+    "description": "Scalable digital systems designed to handle growth without rewrites or rework.",
     "metrics": [
-      { "value": "5M", "label": "identities" },
-      { "value": "24/7", "label": "support" }
+      { "value": "Scale-ready", "label": "by design" },
+      { "value": "Security-first", "label": "architecture" }
     ],
     "link": "#",
-    "linkText": "See full story"
+    "linkText": "Explore approach"
   }
 ]
