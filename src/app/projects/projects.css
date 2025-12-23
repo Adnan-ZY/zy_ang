@@ -79,3 +79,70 @@ button {
 body.modal-open {
     overflow: hidden;
 }
+
+/* Loading Skeleton Animations */
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.skeleton-card {
+    animation: fadeInUp 0.6s ease-out;
+    animation-fill-mode: both;
+}
+
+.skeleton-card:nth-child(1) { animation-delay: 0.1s; }
+.skeleton-card:nth-child(2) { animation-delay: 0.2s; }
+.skeleton-card:nth-child(3) { animation-delay: 0.3s; }
+.skeleton-card:nth-child(4) { animation-delay: 0.4s; }
+.skeleton-card:nth-child(5) { animation-delay: 0.5s; }
+.skeleton-card:nth-child(6) { animation-delay: 0.6s; }
+
+.skeleton-image,
+.skeleton-badge,
+.skeleton-title,
+.skeleton-line,
+.skeleton-tag,
+.skeleton-button {
+    position: relative;
+    overflow: hidden;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-image::after,
+.skeleton-badge::after,
+.skeleton-title::after,
+.skeleton-line::after,
+.skeleton-tag::after,
+.skeleton-button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+.dark .skeleton-image::after,
+.dark .skeleton-badge::after,
+.dark .skeleton-title::after,
+.dark .skeleton-line::after,
+.dark .skeleton-tag::after,
+.dark .skeleton-button::after {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { delay } from 'rxjs/operators';
 
 interface Project {
   id: number;
@@ -26,6 +27,7 @@ export class ProjectsComponent implements OnInit {
   selectedCategory: string = 'All';
   selectedProject: Project | null = null;
   isModalOpen: boolean = false;
+  isLoading: boolean = true;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
@@ -34,16 +36,21 @@ export class ProjectsComponent implements OnInit {
   }
 
   loadProjects() {
-    this.http.get<Project[]>('assets/data/projects.json').subscribe({
+    this.isLoading = true;
+    this.http.get<Project[]>('assets/data/projects.json').pipe(
+      delay(1500) // Minimum 1.5s delay to show loading animation
+    ).subscribe({
       next: (data) => {
         this.projects = data;
         this.filteredProjects = [...data];
         this.extractCategories();
+        this.isLoading = false;
         this.cdr.detectChanges();
       },
       error: () => {
         this.projects = [];
         this.filteredProjects = [];
+        this.isLoading = false;
       }
     });
   }
