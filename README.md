@@ -99,7 +99,7 @@ This project is licensed under the [MIT](LICENSE) License.
 
 ## 👤 Authors
 
-- [@MAdnan](https://github.com/MAdnan)
+- [@Adnan-ZY](https://github.com/Adnan-ZY)
 
 ## 🙏 Acknowledgements
 
