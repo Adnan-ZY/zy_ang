@@ -1,3 +1,53 @@
+/* Logo styling for light/dark mode */
+.header-logo {
+  /* In light mode, invert the logo to make it dark */
+  filter: invert(1) brightness(0);
+  transition: filter 0.3s ease;
+}
+
+:host-context(.dark) .header-logo {
+  /* In dark mode, keep original (light) logo */
+  filter: none;
+}
+
+/* Logo container with shine effect */
+.logo-container {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.logo-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  transform: skewX(-20deg);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.logo-container:hover::before {
+  animation: shineSwipe 1.5s ease-in-out;
+}
+
+@keyframes shineSwipe {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
 /* Hamburger Lines */
 .hamburger-line {
   position: absolute;

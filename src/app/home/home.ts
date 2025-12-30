@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, ChangeDetectorRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -18,10 +18,14 @@ import 'swiper/css/pagination';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 // THIS "export" KEYWORD FIXES THE "has no exported member" ERROR
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   slides: Slide[] = [];
   renderSlides: Slide[] = [];
   private swiper?: Swiper;
+  private parallaxIcons: HTMLElement[] = [];
+  private mouseX = 0;
+  private mouseY = 0;
+  private rafId: number | null = null;
 
   constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
 
@@ -35,6 +39,136 @@ export class HomeComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.initSwiper();
     }, 100);
+    
+    // Initialize parallax icons
+    this.initParallaxIcons();
+    
+    // Force play hero video (needed for some browsers)
+    this.initHeroVideo();
+  }
+
+  initHeroVideo() {
+    const video = document.querySelector('.hero-3d-video') as HTMLVideoElement;
+    if (!video) return;
+
+    // Ensure video attributes are set
+    video.muted = true;
+    video.playsInline = true;
+    video.autoplay = true;
+    video.loop = true;
+
+    // Function to play video
+    const playVideo = () => {
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
+    };
+
+    // Try to play immediately
+    playVideo();
+
+    // Retry after a short delay (helps with some browsers)
+    setTimeout(playVideo, 100);
+    setTimeout(playVideo, 500);
+    setTimeout(playVideo, 1000);
+
+    // Play when video data is loaded
+    video.addEventListener('loadeddata', playVideo);
+    video.addEventListener('canplay', playVideo);
+    video.addEventListener('canplaythrough', playVideo);
+
+    // Play when tab becomes visible
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        playVideo();
+      }
+    });
+
+    // Play on any user interaction (fallback)
+    const userInteractionEvents = ['touchstart', 'touchend', 'click', 'scroll', 'keydown', 'mousemove'];
+    const onUserInteraction = () => {
+      playVideo();
+      // Remove listeners after first interaction
+      userInteractionEvents.forEach(event => {
+        document.removeEventListener(event, onUserInteraction);
+      });
+    };
+    userInteractionEvents.forEach(event => {
+      document.addEventListener(event, onUserInteraction, { passive: true });
+    });
+
+    // Use Intersection Observer to play when visible
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          playVideo();
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(video);
+  }
+
+  ngOnDestroy() {
+    // Cleanup parallax animation
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+    }
+    if (this.swiper) {
+      this.swiper.destroy(true, true);
+    }
+  }
+
+  // Mouse move handler for parallax effect
+  @HostListener('document:mousemove', ['$event'])
+  onMouseMove(event: MouseEvent) {
+    this.mouseX = event.clientX;
+    this.mouseY = event.clientY;
+  }
+
+  // Scroll handler for parallax effect
+  @HostListener('window:scroll')
+  onScroll() {
+    this.updateParallax();
+  }
+
+  initParallaxIcons() {
+    this.parallaxIcons = Array.from(document.querySelectorAll('.parallax-icon')) as HTMLElement[];
+    this.animateParallax();
+  }
+
+  animateParallax() {
+    const update = () => {
+      const scrollY = window.scrollY;
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const centerX = windowWidth / 2;
+      const centerY = windowHeight / 2;
+
+      this.parallaxIcons.forEach((icon) => {
+        const speed = parseFloat(icon.dataset['speed'] || '0.03');
+        
+        // Scroll-based parallax (vertical movement)
+        const scrollOffset = scrollY * speed * 10;
+        
+        // Mouse-based parallax (subtle following effect)
+        const mouseOffsetX = (this.mouseX - centerX) * speed;
+        const mouseOffsetY = (this.mouseY - centerY) * speed;
+        
+        // Combine both effects
+        const translateX = mouseOffsetX;
+        const translateY = -scrollOffset + mouseOffsetY;
+        
+        icon.style.transform = `translate(${translateX}px, ${translateY}px)`;
+      });
+
+      this.rafId = requestAnimationFrame(update);
+    };
+
+    update();
+  }
+
+  updateParallax() {
+    // This triggers on scroll - the actual update happens in animateParallax
   }
 
   initSwiper() {
