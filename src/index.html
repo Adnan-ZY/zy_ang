@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
-  <!-- Preload hero video -->
-  <link rel="preload" href="assets/media/3d-casual-life-analytics-on-computer-screen.webm" as="video" type="video/webm">
+  <!-- Prefetch hero video (as=video not widely supported, using fetch instead) -->
+  <link rel="prefetch" href="assets/media/3d-casual-life-analytics-on-computer-screen.webm" as="fetch" crossorigin>
   
   <!-- Prefetch data files -->
   <link rel="prefetch" href="assets/data/projects.json" as="fetch" type="application/json" crossorigin>

@@ -47,15 +47,19 @@ export class PreloaderComponent implements OnInit, AfterViewInit {
     
     // Phase A: Loading bar and counter animation from 0 to 100
     const counterObj = { value: 0 };
-    loadingTl.to([counterObj, loadingBar], {
+    loadingTl.to(counterObj, {
       value: 100,
-      width: '100%',
       duration: 2,
       ease: 'power2.inOut',
       onUpdate: () => {
         if (counter) counter.textContent = Math.round(counterObj.value) + '%';
       }
     });
+    loadingTl.to(loadingBar, {
+      width: '100%',
+      duration: 2,
+      ease: 'power2.inOut'
+    }, '<');
 
     // Animate the highlight to move from left to right
     loadingTl.to(loadingHighlight, {

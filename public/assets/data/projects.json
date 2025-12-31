@@ -30,7 +30,7 @@
     "id": 4,
     "title": "E-Learning Hub",
     "description": "Interactive learning platform with live classes and course management.",
-    "image": "assets/images/test.jpg",
+    "image": "assets/images/12.png",
     "category": "Education",
     "technologies": ["Angular", "WebRTC", "Redis"],
     "link": "#"
