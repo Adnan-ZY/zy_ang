@@ -6,44 +6,6 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
-  <!-- Critical CSS: Prevent FOUC (Flash of Unstyled Content) -->
-  <style>
-    /* Hide everything until Angular loads */
-    app-root:not(.app-ready) > *:not(app-preloader) {
-      visibility: hidden !important;
-    }
-    
-    /* Inline preloader styles - shows immediately before CSS loads */
-    .initial-loader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: #2D4EF5;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .initial-loader-content {
-      text-align: center;
-    }
-    .initial-loader-logo {
-      font-size: 8rem;
-      font-weight: 400;
-      color: #ffffff;
-      line-height: 1;
-      font-family: 'Poppins', sans-serif;
-    }
-    /* Hide initial loader once Angular preloader takes over */
-    app-root.app-ready .initial-loader,
-    app-preloader ~ .initial-loader {
-      display: none !important;
-    }
-  </style>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@900&display=swap" rel="stylesheet">
@@ -64,24 +26,6 @@
   <link rel="preload" href="assets/images/12.png" as="image">
 </head>
 <body>
-  <!-- Initial loader: Shows instantly before Angular/CSS loads -->
-  <div class="initial-loader" id="initial-loader">
-    <div class="initial-loader-content">
-      <div class="initial-loader-logo">Z</div>
-    </div>
-  </div>
-  
   <app-root></app-root>
-  
-  <script>
-    // Remove initial loader once Angular takes over
-    document.addEventListener('DOMContentLoaded', function() {
-      // Give Angular a moment to bootstrap
-      setTimeout(function() {
-        var loader = document.getElementById('initial-loader');
-        if (loader) loader.style.display = 'none';
-      }, 100);
-    });
-  </script>
 </body>
 </html>
