@@ -76,20 +76,21 @@
                         
                         <!-- Video Element with Transparency -->
                         <video 
-                            class="relative w-full h-auto object-contain drop-shadow-2xl hero-3d-video"
+                            class="relative w-full h-auto object-contain drop-shadow-2xl hero-3d-video select-none pointer-events-none"
                             autoplay 
                             loop 
                             muted 
                             playsinline
                             preload="auto"
+                            disablePictureInPicture
+                            controlsList="nodownload nofullscreen noremoteplayback"
+                            draggable="false"
+                            (contextmenu)="$event.preventDefault()"
                             #heroVideo>
                             <!-- WebM with alpha for Chrome, Firefox, Edge -->
                             <source src="assets/media/3d-casual-life-analytics-on-computer-screen.webm" type="video/webm">
-                            <!-- MP4 fallback for Safari (HEVC with alpha) -->
-                            <source src="assets/media/3d-casual-life-analytics-on-computer-screen.mp4" type='video/mp4; codecs="hvc1"'>
                             Your browser does not support the video tag.
                         </video>
-
                         <!-- Floating accent elements around video - hidden on small mobile -->
                         <div class="absolute -top-4 -right-4 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full blur-2xl opacity-40 animate-float hidden sm:block"></div>
                         <div class="absolute -bottom-6 -left-6 w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full blur-2xl opacity-30 animate-float-delayed hidden sm:block"></div>
