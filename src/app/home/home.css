@@ -101,6 +101,32 @@
 
 /* ===== END 3D VIDEO SECTION ===== */
 
+/* ===== MARQUEE SCROLLING TEXT ===== */
+.scrolling-wrapper {
+    touch-action: pan-y !important;
+    -webkit-overflow-scrolling: touch;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#scrollTrack {
+    pointer-events: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Prevent scroll blocking on mobile */
+@media (max-width: 768px) {
+    .scrolling-wrapper {
+        position: relative;
+        z-index: 1;
+    }
+    
+    #scrollTrack {
+        will-change: auto;
+    }
+}
+
 /* ===== PARALLAX FLOATING ICONS ===== */
 .parallax-icons {
     z-index: 1;
@@ -607,4 +633,60 @@
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(16px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== PROCESS SECTION - SCROLL REVEAL ===== */
+.process-header,
+.process-step {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.process-header.visible,
+.process-step.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered delay for steps */
+.process-step:nth-child(1) { transition-delay: 0s; }
+.process-step:nth-child(2) { transition-delay: 0.1s; }
+.process-step:nth-child(3) { transition-delay: 0.2s; }
+.process-step:nth-child(4) { transition-delay: 0.3s; }
+
+/* Icon pulse animation */
+.process-step .animate-pulse {
+    animation: processPulse 3s ease-in-out infinite;
+}
+
+@keyframes processPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* Card hover effects */
+.process-step > div:last-child > div,
+.process-step > div:first-child > div {
+    position: relative;
+}
+
+.process-step > div > div.bg-white::before,
+.process-step > div > div.dark\:bg-zinc-900::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1rem;
+    padding: 1px;
+    background: linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.1) 50%, transparent 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.process-step > div > div:hover::before {
+    opacity: 1;
 }

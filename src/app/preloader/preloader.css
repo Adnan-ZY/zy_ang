@@ -52,10 +52,10 @@
 
 #loading-highlight {
     position: absolute;
-    width: 40px;
+    width: 30px;
     height: 8px;
     top: 50%;
-    left: 0;
+    right: -15px; /* Position at the end of the loading bar */
     transform: translateY(-50%);
     background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0) 100%);
     filter: blur(3px);

@@ -132,12 +132,7 @@ export class PreloaderComponent implements OnInit, AfterViewInit {
       }
     });
 
-    // Animate the highlight to move from left to right
-    loadingTl.to(loadingHighlight, {
-      left: '90%',
-      duration: (MIN_TIME / 1000) - 0.3,
-      ease: 'power2.inOut'
-    }, '<');
+    // Highlight now moves with loading bar (it's a child element), no separate animation needed
 
     // After minimum time, check if assets are ready
     loadingTl.call(() => {

@@ -45,6 +45,38 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     
     // Force play hero video (needed for some browsers)
     this.initHeroVideo();
+    
+    // Initialize scroll reveal for process section
+    this.initScrollReveal();
+  }
+
+  // Initialize scroll reveal animations
+  initScrollReveal() {
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -100px 0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe process header
+    const processHeader = document.querySelector('.process-header');
+    if (processHeader) {
+      observer.observe(processHeader);
+    }
+
+    // Observe all process steps
+    const processSteps = document.querySelectorAll('.process-step');
+    processSteps.forEach(step => {
+      observer.observe(step);
+    });
   }
 
   initHeroVideo() {
@@ -282,16 +314,33 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     let x = 0;
     const speed = 0.5;
+    let animationId: number;
+    let isVisible = true;
     
     const animate = () => {
+        if (!isVisible) {
+            animationId = requestAnimationFrame(animate);
+            return;
+        }
+        
         x -= speed;
         const halfWidth = track.scrollWidth / 2;
         if (Math.abs(x) >= halfWidth) {
             x += halfWidth;
         }
-        track.style.transform = `translateX(${x}px)`;
-        requestAnimationFrame(animate);
+        // Use translate3d for GPU acceleration without blocking scroll
+        track.style.transform = `translate3d(${x}px, 0, 0)`;
+        animationId = requestAnimationFrame(animate);
     };
+    
+    // Pause animation when not visible (saves battery and prevents scroll jank)
+    const marqueeSection = document.getElementById('marquee');
+    if (marqueeSection) {
+        const observer = new IntersectionObserver((entries) => {
+            isVisible = entries[0].isIntersecting;
+        }, { threshold: 0 });
+        observer.observe(marqueeSection);
+    }
     
     animate();
   }
