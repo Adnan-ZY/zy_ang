@@ -1,32 +1,11 @@
 [
   {
-    "image": "assets/images/zypherx-build.png",
-    "description": "Production-grade web platforms built for speed, security, and long-term maintainability.",
-    "metrics": [
-      { "value": "Clean code", "label": "no shortcuts" },
-      { "value": "Ownership", "label": "fully yours" }
-    ],
-    "link": "#",
-    "linkText": "See architecture"
+    "image": "assets/images/slides (1).png"
   },
   {
-    "image": "assets/images/zypherx-operate.png",
-    "description": "Internal tools and desktop applications that remove bottlenecks and keep teams operational.",
-    "metrics": [
-      { "value": "99.99%", "label": "system stability" },
-      { "value": "Zero", "label": "operational chaos" }
-    ],
-    "link": "#",
-    "linkText": "View systems"
+    "image": "assets/images/slides (2).png"
   },
   {
-    "image": "assets/images/zypherx-scale.png",
-    "description": "Scalable digital systems designed to handle growth without rewrites or rework.",
-    "metrics": [
-      { "value": "Scale-ready", "label": "by design" },
-      { "value": "Security-first", "label": "architecture" }
-    ],
-    "link": "#",
-    "linkText": "Explore approach"
+    "image": "assets/images/slides (3).png"
   }
 ]

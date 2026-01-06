@@ -250,23 +250,8 @@
 <section id="portfolio" class="py-20 overflow-hidden slider-depth bg-white dark:bg-black">
     <div class="swiper projectSwiper w-full pb-12" *ngIf="renderSlides && renderSlides.length > 0">
         <div class="swiper-wrapper">
-            <div class="swiper-slide relative w-[85%] md:w-[75%] h-[320px] md:h-[480px] rounded-2xl overflow-hidden transition-all duration-500" *ngFor="let s of renderSlides">
-                <img [src]="s.image" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute top-1/2 left-1 right-1 md:left-16 md:right-auto transform -translate-y-1/2 w-[96%] md:w-[500px] 
-                            bg-gradient-to-r from-[#404040] via-[#404040]/90 to-[#404040]/70 
-                            backdrop-blur-sm p-4 sm:p-6 md:p-10 rounded-xl shadow-lg text-white border border-white/10 
-                            flex flex-col items-start max-w-full min-w-0 slider-detail-box overflow-x-auto">
-                    <p class="text-xl md:text-2xl font-light leading-snug mb-8 truncate-description">{{ s.description }}</p>
-                    <div class="flex flex-row gap-8 mb-8">
-                        <div *ngFor="let m of s.metrics">
-                            <span class="block text-5xl font-bold mb-1">{{ m.value }}</span>
-                            <span class="text-xs text-gray-300 leading-tight block max-w-[120px] truncate-label">{{ m.label }}</span>
-                        </div>
-                    </div>
-                    <a [href]="s.link" class="inline-block bg-[#1a1a1a] hover:bg-black text-white text-sm font-semibold py-3 px-6 rounded transition duration-300">
-                        {{ s.linkText || 'See full story' }}
-                    </a>
-                </div>
+            <div class="swiper-slide w-full aspect-video max-h-[600px] max-w-4xl rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:scale-105" *ngFor="let s of renderSlides">
+                <img [src]="s.image" loading="lazy" class="w-full h-full object-cover">
             </div>
         </div>
         

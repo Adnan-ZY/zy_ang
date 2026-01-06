@@ -2,10 +2,10 @@
   {
     "id": 1,
     "title": "Farm to Home",
-    "description": "E-commerce platform connecting local farmers directly with consumers for fresh produce delivery.",
+    "description": "",
     "image": "assets/images/farm-to-home.png",
     "category": "E-Commerce",
-    "technologies": ["Angular", "Node.js", "MongoDB"],
+    "technologies": [".NET", "SQL"],
     "link": "#"
   },
   {
@@ -14,43 +14,8 @@
     "description": "Service management system for HVAC maintenance and customer scheduling.",
     "image": "assets/images/norizan-aircond.png",
     "category": "Service Management",
-    "technologies": ["React", "Express", "PostgreSQL"],
-    "link": "#"
-  },
-  {
-    "id": 3,
-    "title": "Portfolio Platform",
-    "description": "Modern portfolio showcase platform for creative professionals and agencies.",
-    "image": "assets/images/p.png",
-    "category": "Portfolio",
-    "technologies": ["Vue.js", "Firebase", "Tailwind"],
-    "link": "#"
-  },
-  {
-    "id": 4,
-    "title": "E-Learning Hub",
-    "description": "Interactive learning platform with live classes and course management.",
-    "image": "assets/images/12.png",
-    "category": "Education",
-    "technologies": ["Angular", "WebRTC", "Redis"],
-    "link": "#"
-  },
-  {
-    "id": 5,
-    "title": "FinTech Dashboard",
-    "description": "Real-time financial analytics and investment tracking dashboard.",
-    "image": "assets/images/farm-to-home.png",
-    "category": "Finance",
-    "technologies": ["React", "D3.js", "Python"],
-    "link": "#"
-  },
-  {
-    "id": 6,
-    "title": "Smart Home IoT",
-    "description": "Integrated smart home control system with AI-powered automation.",
-    "image": "assets/images/norizan-aircond.png",
-    "category": "IoT",
-    "technologies": ["Vue.js", "MQTT", "TensorFlow"],
+    "technologies": ["html5", "tailwindcss"],
     "link": "#"
   }
+  
 ]
