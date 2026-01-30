@@ -1,0 +1,189 @@
+<div class="portfolio-section min-h-screen bg-gray-50 dark:bg-zinc-950 transition-colors duration-300">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-20 right-1/4 w-96 h-96 bg-purple-500/5 dark:bg-purple-500/10 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/3 left-1/4 w-80 h-80 bg-pink-500/5 dark:bg-pink-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative w-full mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-32">
+        <!-- Header -->
+        <div class="text-center mb-20">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-white/20 rounded-full mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-600 dark:bg-gray-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-gray-900 dark:bg-white"></span>
+                </span>
+                <span class="text-xs font-semibold text-gray-600 dark:text-gray-300 tracking-widest uppercase">Our Projects</span>
+            </div>
+
+            <!-- Main Heading -->
+            <div class="mb-8">
+                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight mb-6 text-gray-900 dark:text-white">
+                    Portfolio
+                </h1>
+                <div class="flex items-center justify-center gap-3">
+                    <div class="heading-line h-[3px] w-12 bg-gradient-to-r from-transparent to-gray-400 dark:to-gray-600 rounded-full"></div>
+                    <div class="heading-line-center h-[3px] w-20 bg-gray-900 dark:bg-white rounded-full"></div>
+                    <div class="heading-line-right h-[3px] w-12 bg-gradient-to-l from-transparent to-gray-400 dark:to-gray-600 rounded-full"></div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium">
+                Explore our collection of successful projects
+                <br class="hidden sm:block" />
+                showcasing creativity, innovation, and technical excellence.
+            </p>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="mb-16">
+            <div class="flex justify-center">
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-3 p-2 sm:px-6 sm:py-4 bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl sm:rounded-full backdrop-blur-sm shadow-sm w-full max-w-xs sm:max-w-none sm:w-auto mx-auto">
+                    <button 
+                        *ngFor="let cat of categories"
+                        (click)="filterByCategory(cat)"
+                        [class.active]="selectedCategory === cat"
+                        class="filter-btn px-4 sm:px-5 py-2 rounded-lg sm:rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex-grow sm:flex-grow-0">
+                        {{ cat }}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div *ngIf="isLoading" class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div *ngFor="let i of [1,2,3,4,5,6]" class="bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-zinc-800">
+                    <div class="h-56 bg-gray-200 dark:bg-zinc-800 animate-pulse"></div>
+                    <div class="p-6">
+                        <div class="h-4 w-20 bg-gray-200 dark:bg-zinc-800 rounded mb-3 animate-pulse"></div>
+                        <div class="h-6 w-3/4 bg-gray-200 dark:bg-zinc-800 rounded mb-3 animate-pulse"></div>
+                        <div class="h-4 w-full bg-gray-200 dark:bg-zinc-800 rounded animate-pulse"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Grid -->
+        <div *ngIf="!isLoading && filteredItems.length > 0" class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div *ngFor="let item of filteredItems" 
+                     (click)="openModal(item)"
+                     class="portfolio-card group bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-zinc-800 hover:border-purple-400 dark:hover:border-purple-500 transition-all duration-500 cursor-pointer">
+                    
+                    <!-- Image -->
+                    <div class="relative h-56 overflow-hidden">
+                        <img [src]="item.image" 
+                             [alt]="item.title"
+                             loading="lazy"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        
+                        <!-- View indicator -->
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-6">
+                        <span class="inline-block px-3 py-1 text-xs font-semibold text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 rounded-full mb-3">
+                            {{ item.category }}
+                        </span>
+                        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                            {{ item.title }}
+                        </h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
+                            {{ item.description }}
+                        </p>
+
+                        <!-- Technologies -->
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span *ngFor="let tech of item.technologies.slice(0, 3)"
+                                  class="px-2 py-1 text-xs font-medium bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-gray-400 rounded">
+                                {{ tech }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && filteredItems.length === 0" class="text-center py-20">
+            <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center">
+                <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No projects found</h3>
+            <p class="text-gray-600 dark:text-gray-400">Try selecting a different category</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div *ngIf="isModalOpen && selectedItem" 
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+         (click)="closeModal()">
+        <div class="relative w-full max-w-4xl bg-white dark:bg-zinc-900 rounded-3xl overflow-hidden shadow-2xl"
+             (click)="$event.stopPropagation()">
+            
+            <!-- Close button -->
+            <button (click)="closeModal()" 
+                    class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+
+            <!-- Image -->
+            <div class="relative h-64 sm:h-80">
+                <img [src]="selectedItem.image" 
+                     [alt]="selectedItem.title"
+                     class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-zinc-900 via-transparent to-transparent"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-8 -mt-16 relative">
+                <span class="inline-block px-4 py-1.5 text-sm font-semibold text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 rounded-full mb-4">
+                    {{ selectedItem.category }}
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    {{ selectedItem.title }}
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                    {{ selectedItem.description }}
+                </p>
+
+                <!-- Technologies -->
+                <div class="mb-8">
+                    <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-3">Technologies Used</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <span *ngFor="let tech of selectedItem.technologies"
+                              class="px-3 py-1.5 text-sm font-medium bg-gray-100 dark:bg-zinc-800 text-gray-700 dark:text-gray-300 rounded-lg">
+                            {{ tech }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- CTA -->
+                <a [href]="selectedItem.link" 
+                   target="_blank"
+                   class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors">
+                    View Project
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

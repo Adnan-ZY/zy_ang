@@ -23,9 +23,9 @@ export class HeaderComponent implements OnInit {
   // Data for your links
   navItems = [
     { label: 'Projects', link: '/projects' },
-    { label: 'Services', link: '#services' },
-    { label: 'Portfolio', link: '#portfolio' },
-    { label: 'Contact', link: '#contact' }
+    { label: 'Services', link: '/services' },
+    { label: 'Portfolio', link: '/portfolio' },
+    { label: 'Contact', link: '/contact' }
   ];
 
   ngOnInit() {
