@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "title": "Farm to Home",
+    "description": "",
+    "image": "assets/images/farm-to-home.png",
+    "category": "E-Commerce",
+    "technologies": [".NET", "SQL"],
+    "link": "#"
+  },
+  {
+    "id": 2,
+    "title": "Norizan Aircond",
+    "description": "Service management system for HVAC maintenance and customer scheduling.",
+    "image": "assets/images/norizan-aircond.png",
+    "category": "Service Management",
+    "technologies": ["html5", "tailwindcss"],
+    "link": "#"
+  }
+  
+]

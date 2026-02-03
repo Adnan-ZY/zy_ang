@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -10,6 +11,11 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './contact.css'
 })
 export class ContactComponent {
+  constructor(private titleService: Title, private metaService: Meta) {
+    this.titleService.setTitle('Contact ZYPHERX - Digital Agency | Get Your Free Consultation');
+    this.metaService.updateTag({ name: 'description', content: 'Contact ZYPHERX for a free consultation on your digital project. Expert web design, SEO, and digital marketing services. Reach out today!' });
+  }
+
   formData = {
     name: '',
     email: '',

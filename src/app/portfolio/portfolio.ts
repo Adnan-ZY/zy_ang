@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Meta, Title } from '@angular/platform-browser';
 import { delay } from 'rxjs/operators';
 
 interface PortfolioItem {
@@ -29,7 +30,10 @@ export class PortfolioComponent implements OnInit {
   isModalOpen: boolean = false;
   isLoading: boolean = true;
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private titleService: Title, private metaService: Meta) {
+    this.titleService.setTitle('Portfolio - ZYPHERX Digital Agency | Our Successful Projects');
+    this.metaService.updateTag({ name: 'description', content: 'Explore ZYPHERX\'s portfolio of successful digital projects. View our work in web design, SEO, digital marketing, and web development.' });
+  }
 
   ngOnInit() {
     this.loadPortfolio();

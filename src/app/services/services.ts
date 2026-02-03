@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 
 interface Service {
   id: number;
@@ -19,6 +20,11 @@ interface Service {
   styleUrl: './services.css'
 })
 export class ServicesComponent {
+  constructor(private titleService: Title, private metaService: Meta) {
+    this.titleService.setTitle('Services - ZYPHERX | Web Design, Development & Digital Marketing');
+    this.metaService.updateTag({ name: 'description', content: 'Explore ZYPHERX\'s comprehensive digital services: web development, SEO optimization, digital marketing, branding, and IT solutions.' });
+  }
+
   services: Service[] = [
     {
       id: 1,

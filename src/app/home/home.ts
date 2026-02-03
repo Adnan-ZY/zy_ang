@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy, CUSTOM_ELEMENTS_SCHEMA, Ch
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Meta, Title } from '@angular/platform-browser';
 import Swiper from 'swiper';
 import { EffectCoverflow, Autoplay, A11y, Keyboard } from 'swiper/modules';
 import 'swiper/css';
@@ -27,7 +28,10 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   private mouseY = 0;
   private rafId: number | null = null;
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private titleService: Title, private metaService: Meta) {
+    this.titleService.setTitle('ZYPHERX - Digital Innovation & Marketing Agency | Web Design & SEO');
+    this.metaService.updateTag({ name: 'description', content: 'ZYPHERX is a digital innovation agency specializing in web design, SEO optimization, digital marketing, and scalable web solutions. Elevate your brand\'s online presence.' });
+  }
 
   ngOnInit() {
     this.initMarquee();

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Meta, Title } from '@angular/platform-browser';
 import { delay } from 'rxjs/operators';
 
 interface Project {
@@ -29,7 +30,10 @@ export class ProjectsComponent implements OnInit {
   isModalOpen: boolean = false;
   isLoading: boolean = true;
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {}
+  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private titleService: Title, private metaService: Meta) {
+    this.titleService.setTitle('Projects - ZYPHERX | Web Design & Development Projects');
+    this.metaService.updateTag({ name: 'description', content: 'View ZYPHERX\'s featured projects in web design, development, and digital solutions. Discover our expertise in creating innovative digital experiences.' });
+  }
 
   ngOnInit() {
     this.loadProjects();
