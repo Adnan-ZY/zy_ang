@@ -1,4 +1,23 @@
+# ZYPHERX - Modern Web & Software Development Studio
+# https://zypherx.tech
+
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /*.json$
 
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Sitemap location
 Sitemap: https://zypherx.tech/sitemap.xml
+
+# Host
+Host: https://zypherx.tech
