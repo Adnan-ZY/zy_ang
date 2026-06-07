@@ -116,6 +116,17 @@
                         <p class="text-gray-900 dark:text-white font-medium">Thank you! Your message has been sent successfully.</p>
                     </div>
 
+                    <!-- Error Message -->
+                    <div *ngIf="hasError()"
+                         class="mb-8 p-4 bg-red-50 dark:bg-red-950/40 border border-red-300 dark:border-red-900 rounded-xl flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </div>
+                        <p class="text-red-700 dark:text-red-300 font-medium">Something went wrong. Please try again or email us directly.</p>
+                    </div>
+
                     <!-- Form Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                         <!-- Name -->

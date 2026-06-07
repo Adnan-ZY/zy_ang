@@ -49,6 +49,11 @@ export class ContactComponent {
     { name: 'Instagram', icon: 'instagram', url: '#' }
   ];
 
+  // Free email delivery via FormSubmit.co — no API key/signup required.
+  // Messages are delivered to this inbox. The very first submission triggers a
+  // one-time activation email to this address; click the link in it to enable delivery.
+  private readonly formEndpoint = 'https://formsubmit.co/ajax/zypherhe@gmail.com';
+
   async onSubmit() {
     if (!this.formData.name || !this.formData.email || !this.formData.message) {
       return;
@@ -57,23 +62,50 @@ export class ContactComponent {
     this.isSubmitting.set(true);
     this.hasError.set(false);
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch(this.formEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: this.formData.name,
+          email: this.formData.email,
+          subject: this.formData.subject || 'No subject',
+          message: this.formData.message,
+          // FormSubmit control fields
+          _subject: `New ZYPHERX inquiry from ${this.formData.name}`,
+          _template: 'table',
+          _captcha: 'false'
+        })
+      });
 
-    this.isSubmitting.set(false);
-    this.isSubmitted.set(true);
+      const result = await response.json().catch(() => ({}));
+      const success = response.ok && (result.success === true || result.success === 'true');
 
-    // Reset form
-    this.formData = {
-      name: '',
-      email: '',
-      subject: '',
-      message: ''
-    };
+      if (!success) {
+        throw new Error('Submission failed');
+      }
 
-    // Reset success message after 5 seconds
-    setTimeout(() => {
-      this.isSubmitted.set(false);
-    }, 5000);
+      this.isSubmitted.set(true);
+
+      // Reset form
+      this.formData = {
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      };
+
+      // Reset success message after 5 seconds
+      setTimeout(() => {
+        this.isSubmitted.set(false);
+      }, 5000);
+    } catch {
+      this.hasError.set(true);
+    } finally {
+      this.isSubmitting.set(false);
+    }
   }
 }

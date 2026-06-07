@@ -6,16 +6,33 @@
     "image": "assets/images/farm-to-home.png",
     "category": "E-Commerce",
     "technologies": [".NET", "SQL"],
-    "link": "#"
+    "link": "https://zypherx-001-site1.qtempurl.com/"
   },
   {
     "id": 2,
     "title": "Norizan Aircond",
     "description": "Service management system for HVAC maintenance and customer scheduling.",
-    "image": "assets/images/norizan-aircond.png",
+    "image": "",
     "category": "Service Management",
     "technologies": ["html5", "tailwindcss"],
     "link": "#"
+  },
+  {
+    "id": 3,
+    "title": "Therapy Space",
+    "description": "An online therapy platform where users can browse counsellors, view availability, and book therapy sessions online with secure scheduling and reminders.",
+    "image": "assets/images/therapy-space.png",
+    "category": "Booking",
+    "technologies": ["Angular", "tailwindcss"],
+    "link": "https://adnan-zy.github.io/therapy-space/"
+  },
+  {
+    "id": 4,
+    "title": "Black Friday Sales",
+    "description": "A Black Friday sales-inspired website with a bold, modern design, featuring deal countdowns, product highlights, and a fast, responsive front end.",
+    "image": "assets/images/black-friday.png",
+    "category": "E-Commerce",
+    "technologies": ["html5", "tailwindcss", "JavaScript"],
+    "link": "https://adnan-zy.github.io/BlackFriday-Frontend/"
   }
-  
 ]

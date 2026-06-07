@@ -22,6 +22,12 @@ import 'swiper/css/pagination';
 export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   slides: Slide[] = [];
   renderSlides: Slide[] = [];
+  clients: Client[] = [
+    { name: 'Norizan', subtitle: 'Aircond Services', logo: '' },
+    { name: 'Client Two', logo: 'assets/images/clients/client 2.svg' },
+    { name: 'Minusto', logo: '' },
+    { name: 'TraceTech', logo: '' },
+  ];
   private swiper?: Swiper;
   private parallaxIcons: HTMLElement[] = [];
   private mouseX = 0;
@@ -302,22 +308,44 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     const track = document.getElementById("scrollTrack");
     if (!track) return;
 
-    const titleText = "ZYPHERX";
-    
-    const createSpan = () => {
+    const keywords = [
+        "ERP Development",
+        "SEO Optimization",
+        "Portfolio Websites",
+        "Web Development",
+        "UI / UX Design",
+        "E-Commerce",
+        "Brand Identity",
+        "Digital Marketing",
+        "Cloud Solutions",
+        "Mobile Apps",
+    ];
+
+    const createKeywordSpan = (text: string) => {
         const s = document.createElement("span");
-        s.textContent = titleText;
-        s.className = "text-6xl md:text-8xl lg:text-[10vw] font-black text-gray-900 dark:text-gray-100 uppercase tracking-tighter mx-10 py-4 whitespace-nowrap";
+        s.textContent = text;
+        s.className = "text-5xl md:text-7xl lg:text-[7vw] font-black text-gray-900 dark:text-gray-100 uppercase tracking-tighter mx-8 py-4 whitespace-nowrap";
         return s;
     };
 
-    for (let i = 0; i < 10; i++) {
-        track.appendChild(createSpan());
+    const createSeparator = () => {
+        const s = document.createElement("span");
+        s.textContent = "•";
+        s.className = "self-center text-4xl md:text-6xl lg:text-[5vw] text-gray-300 dark:text-zinc-700 mx-4 py-4";
+        return s;
+    };
+
+    // Repeat the keyword list so the track is wide enough for a seamless loop
+    for (let r = 0; r < 2; r++) {
+        keywords.forEach((kw) => {
+            track.appendChild(createKeywordSpan(kw));
+            track.appendChild(createSeparator());
+        });
     }
     track.appendChild(track.cloneNode(true));
 
     let x = 0;
-    const speed = 0.5;
+    const speed = 1.5;
     let animationId: number;
     let isVisible = true;
     
@@ -361,4 +389,10 @@ interface Slide {
   metrics: SlideMetric[];
   link: string;
   linkText?: string;
+}
+
+interface Client {
+  name: string;
+  logo: string;
+  subtitle?: string;
 }
