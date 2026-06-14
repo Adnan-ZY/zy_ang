@@ -1,82 +1,75 @@
 <div class="projects-section min-h-screen bg-white dark:bg-black transition-colors duration-300">
     <!-- Background Pattern -->
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div class="absolute top-0 left-1/4 w-96 h-96 bg-gray-500/5 dark:bg-gray-500/10 rounded-full blur-3xl"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gray-400/5 dark:bg-gray-400/10 rounded-full blur-3xl"></div>
+        <div class="absolute inset-0 projects-grid-bg opacity-[0.025] dark:opacity-[0.04]"></div>
+        <div class="absolute top-0 left-1/4 w-[36rem] h-[36rem] bg-gray-500/5 dark:bg-gray-500/[0.07] rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-gray-400/5 dark:bg-gray-400/[0.06] rounded-full blur-3xl"></div>
     </div>
-    
-    <div class="relative w-full mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-32">
+
+    <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-32">
         <!-- Header -->
-        <div class="text-center mb-20">
+        <div class="max-w-3xl mb-14 md:mb-16">
             <!-- Badge -->
             <div class="inline-flex items-center gap-3 px-4 py-2.5 bg-gray-100 dark:bg-white/10 border border-gray-200 dark:border-white/20 rounded-full mb-8">
-                <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gray-600 dark:bg-gray-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-gray-900 dark:bg-white"></span>
-                </span>
-                <span class="text-xs font-semibold text-gray-600 dark:text-gray-300 tracking-widest uppercase">Our Work</span>
+                <span class="text-xs font-semibold text-gray-600 dark:text-gray-300 tracking-widest uppercase">Selected Work</span>
             </div>
 
             <!-- Main Heading -->
-            <div class="mb-8">
-                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight mb-6 text-gray-900 dark:text-white">
-                    Our Projects
-                </h1>
-                <div class="flex items-center justify-center gap-3">
-                    <div class="h-[3px] w-12 bg-gradient-to-r from-transparent to-gray-400 dark:to-gray-600 rounded-full"></div>
-                    <div class="h-[3px] w-20 bg-gray-900 dark:bg-white rounded-full"></div>
-                    <div class="h-[3px] w-12 bg-gradient-to-l from-transparent to-gray-400 dark:to-gray-600 rounded-full"></div>
-                </div>
-            </div>
+            <h1 class="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tighter mb-6 text-gray-900 dark:text-white leading-[0.95]">
+                Projects that<br />
+                <span class="text-gray-400 dark:text-zinc-600">push pixels &amp; profit.</span>
+            </h1>
 
             <!-- Description -->
-            <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium">
-                Discover our collection of innovative digital solutions
-                <br class="hidden sm:block" />
-                built with cutting-edge technology and creative excellence
+            <p class="text-base sm:text-lg text-gray-600 dark:text-gray-400 leading-relaxed font-medium max-w-2xl">
+                A curated selection of digital products we've designed and engineered — crafted with cutting-edge technology and an obsession for detail.
             </p>
         </div>
 
-        <!-- Category Filter with Container -->
-        <div class="mb-16">
-            <div class="flex justify-center">
-                <div class="filter-container flex flex-wrap justify-center gap-2 sm:gap-3 p-2 sm:px-6 sm:py-4 bg-gray-50 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl sm:rounded-full backdrop-blur-sm shadow-sm w-full max-w-xs sm:max-w-none sm:w-auto mx-auto">
-                    <button 
-                        *ngFor="let cat of categories"
-                        (click)="filterByCategory(cat)"
-                        [class.filter-btn-active]="selectedCategory === cat"
-                        class="filter-btn px-4 sm:px-5 py-2 rounded-lg sm:rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 flex-grow sm:flex-grow-0">
-                        {{ cat }}
-                    </button>
-                </div>
+        <!-- Toolbar: Filters + Count -->
+        <div *ngIf="!isLoading" class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12 pb-8 border-b border-gray-200 dark:border-zinc-800">
+            <!-- Category Filter -->
+            <div class="filter-container inline-flex flex-wrap items-center gap-1.5 p-1.5 rounded-full">
+                <button
+                    *ngFor="let cat of categories"
+                    (click)="filterByCategory(cat)"
+                    [class.filter-btn-active]="selectedCategory === cat"
+                    class="filter-btn px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300">
+                    {{ cat }}
+                </button>
+            </div>
+
+            <!-- Count -->
+            <div class="flex items-center gap-2 text-sm font-medium text-gray-500 dark:text-gray-400 sm:pr-2">
+                <span class="text-2xl font-black text-gray-900 dark:text-white tabular-nums">{{ filteredProjects.length }}</span>
+                <span class="leading-tight">{{ filteredProjects.length === 1 ? 'project' : 'projects' }}<br class="hidden sm:block" /> showcased</span>
             </div>
         </div>
 
-        <!-- Loading Skeleton Grid -->
-        <div *ngIf="isLoading" class="max-w-7xl mx-auto">
+        <!-- Loading Skeleton -->
+        <div *ngIf="isLoading">
             <!-- Featured skeleton -->
-            <div class="skeleton-card-featured bg-gray-50 dark:bg-zinc-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-zinc-800 mb-8">
-                <div class="skeleton-image h-72 bg-gray-200 dark:bg-zinc-800"></div>
-                <div class="p-8">
-                    <div class="skeleton-badge h-6 w-28 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-4"></div>
-                    <div class="skeleton-title h-8 w-2/3 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-4"></div>
+            <div class="skeleton-card-featured grid lg:grid-cols-2 bg-gray-50 dark:bg-zinc-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-zinc-800 mb-8">
+                <div class="skeleton-image h-72 lg:h-[420px] bg-gray-200 dark:bg-zinc-800"></div>
+                <div class="p-8 lg:p-12 flex flex-col justify-center">
+                    <div class="skeleton-badge h-5 w-28 bg-gray-200 dark:bg-zinc-800 rounded-full mb-5"></div>
+                    <div class="skeleton-title h-10 w-2/3 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-5"></div>
                     <div class="space-y-2 mb-6">
                         <div class="skeleton-line h-4 w-full bg-gray-200 dark:bg-zinc-800 rounded"></div>
                         <div class="skeleton-line h-4 w-5/6 bg-gray-200 dark:bg-zinc-800 rounded"></div>
                     </div>
                     <div class="flex gap-2">
-                        <div class="skeleton-tag h-7 w-16 bg-gray-200 dark:bg-zinc-800 rounded-md"></div>
-                        <div class="skeleton-tag h-7 w-14 bg-gray-200 dark:bg-zinc-800 rounded-md"></div>
+                        <div class="skeleton-tag h-7 w-16 bg-gray-200 dark:bg-zinc-800 rounded-full"></div>
+                        <div class="skeleton-tag h-7 w-14 bg-gray-200 dark:bg-zinc-800 rounded-full"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Grid skeleton -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div *ngFor="let i of [1,2,3,4]" class="skeleton-card bg-gray-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-zinc-800">
-                    <div class="skeleton-image h-48 bg-gray-200 dark:bg-zinc-800"></div>
-                    <div class="p-5">
-                        <div class="skeleton-badge h-5 w-20 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-3"></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div *ngFor="let i of [1,2,3]" class="skeleton-card bg-gray-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-zinc-800">
+                    <div class="skeleton-image h-52 bg-gray-200 dark:bg-zinc-800"></div>
+                    <div class="p-6">
                         <div class="skeleton-title h-6 w-3/4 bg-gray-200 dark:bg-zinc-800 rounded-lg mb-3"></div>
                         <div class="space-y-2 mb-4">
                             <div class="skeleton-line h-3 w-full bg-gray-200 dark:bg-zinc-800 rounded"></div>
@@ -87,157 +80,171 @@
             </div>
         </div>
 
-        <!-- Projects Grid -->
-        <div *ngIf="!isLoading && filteredProjects.length > 0" class="max-w-7xl mx-auto">
-            <!-- Featured Project Card -->
-            <div 
+        <!-- Projects -->
+        <div *ngIf="!isLoading && filteredProjects.length > 0">
+            <!-- Featured Project -->
+            <article
                 *ngIf="filteredProjects[0]"
                 (click)="openModal(filteredProjects[0])"
-                class="featured-project group relative bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500 transition-all duration-500 cursor-pointer mb-8">
-                
-                <!-- Featured Image -->
-                <div class="relative h-80 overflow-hidden">
+                class="featured-card group relative grid lg:grid-cols-2 bg-white dark:bg-zinc-950 rounded-3xl overflow-hidden border border-gray-200 dark:border-zinc-800 cursor-pointer mb-8">
+
+                <!-- Media -->
+                <div class="relative aspect-[16/10] lg:aspect-auto lg:min-h-[440px] overflow-hidden bg-gray-100 dark:bg-zinc-900">
                     <img
                         *ngIf="filteredProjects[0].image"
                         [src]="filteredProjects[0].image"
                         [alt]="filteredProjects[0].title"
                         loading="lazy"
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
                     <!-- Text fallback when no image -->
-                    <div *ngIf="!filteredProjects[0].image" class="w-full h-full bg-gradient-to-br from-gray-800 to-black transition-transform duration-700 group-hover:scale-110"></div>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
-                    
-                    <!-- Featured Badge -->
+                    <div *ngIf="!filteredProjects[0].image" class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-black transition-transform duration-700 ease-out group-hover:scale-105">
+                        <span class="px-8 text-center text-4xl font-black uppercase tracking-tight text-white/90">{{ filteredProjects[0].title }}</span>
+                    </div>
+
+                    <!-- Featured tag -->
                     <div class="absolute top-6 left-6">
-                        <span class="inline-block px-4 py-2 text-xs font-bold text-white bg-black/80 backdrop-blur-sm rounded-lg border border-white/20">
-                            FEATURED
+                        <span class="inline-flex items-center gap-2 px-3.5 py-2 text-[11px] font-bold tracking-widest uppercase text-white bg-black/70 backdrop-blur-md rounded-full border border-white/20">
+                            Featured
                         </span>
                     </div>
                 </div>
 
-                <!-- Featured Content -->
-                <div class="absolute inset-0 flex flex-col justify-end p-8 text-white">
-                    <h2 class="text-4xl md:text-5xl font-black mb-3 text-white drop-shadow-lg transition-all duration-300 featured-heading">
+                <!-- Content -->
+                <div class="relative flex flex-col justify-center p-8 sm:p-10 lg:p-14">
+                    <span class="text-xs font-semibold tracking-widest uppercase text-gray-400 dark:text-zinc-500 mb-4">{{ filteredProjects[0].category }}</span>
+
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-gray-900 dark:text-white mb-5 leading-[1.05]">
                         {{ filteredProjects[0].title }}
                     </h2>
-                    <p class="text-lg text-white/95 mb-4 max-w-2xl drop-shadow-md">
+
+                    <p class="text-base lg:text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-7 max-w-xl">
                         {{ filteredProjects[0].description }}
                     </p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span *ngFor="let tech of filteredProjects[0].technologies" class="px-3 py-1.5 text-xs font-semibold bg-black/60 backdrop-blur-sm rounded-lg border border-white/40 text-white/95">
+
+                    <div class="flex flex-wrap gap-2 mb-9">
+                        <span *ngFor="let tech of filteredProjects[0].technologies" class="px-3 py-1.5 text-xs font-semibold text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-zinc-800 rounded-full border border-gray-200 dark:border-zinc-700">
                             {{ tech }}
                         </span>
                     </div>
-                    <div class="inline-flex items-center text-white font-semibold group-hover:gap-3 gap-2 transition-all drop-shadow-md">
-                        Explore Project
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
+
+                    <div class="inline-flex items-center gap-3 text-gray-900 dark:text-white font-bold text-base">
+                        <span class="relative">
+                            Explore Project
+                            <span class="absolute -bottom-1 left-0 h-[2px] w-0 bg-gray-900 dark:bg-white transition-all duration-300 group-hover:w-full"></span>
+                        </span>
+                        <span class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 transition-transform duration-300 group-hover:translate-x-1">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </span>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- Secondary Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <ng-container *ngFor="let project of filteredProjects; let idx = index">
-                    <ng-container *ngIf="idx !== 0">
-                        <div 
-                            (click)="openModal(project)"
-                            class="project-card group bg-gray-50 dark:bg-zinc-900 rounded-2xl overflow-hidden border border-gray-200 dark:border-zinc-800 hover:border-gray-400 dark:hover:border-zinc-600 transition-all duration-300 cursor-pointer flex flex-col h-full">
-                            
-                            <!-- Project Image -->
-                            <div class="relative h-48 overflow-hidden">
-                                <img
-                                    *ngIf="project.image"
-                                    [src]="project.image"
-                                    [alt]="project.title"
-                                    loading="lazy"
-                                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                                <!-- Text fallback when no image -->
-                                <div *ngIf="!project.image" class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-zinc-800 transition-transform duration-500 group-hover:scale-110">
-                                    <span class="px-4 text-center text-2xl font-black uppercase tracking-tight text-gray-400 dark:text-zinc-600 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">{{ project.title }}</span>
-                                </div>
-                                <div *ngIf="project.image" class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-                                
-                                <!-- Category Badge -->
-                                <div class="absolute top-4 right-4">
-                                    <span class="px-3 py-1.5 text-xs font-semibold text-white bg-black/80 backdrop-blur-sm rounded-lg border border-white/20">
-                                        {{ project.category }}
-                                    </span>
-                                </div>
+                    <article
+                        *ngIf="idx !== 0"
+                        (click)="openModal(project)"
+                        class="project-card group relative bg-white dark:bg-zinc-950 rounded-2xl overflow-hidden border border-gray-200 dark:border-zinc-800 cursor-pointer flex flex-col">
+
+                        <!-- Media -->
+                        <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-zinc-900">
+                            <img
+                                *ngIf="project.image"
+                                [src]="project.image"
+                                [alt]="project.title"
+                                loading="lazy"
+                                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105">
+                            <!-- Text fallback when no image -->
+                            <div *ngIf="!project.image" class="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-zinc-800 transition-transform duration-700 ease-out group-hover:scale-105">
+                                <span class="px-4 text-center text-2xl font-black uppercase tracking-tight text-gray-400 dark:text-zinc-600 group-hover:text-gray-900 dark:group-hover:text-white transition-colors duration-300">{{ project.title }}</span>
                             </div>
 
-                            <!-- Project Content -->
-                            <div class="p-5 flex flex-col flex-grow">
-                                <!-- Title -->
-                                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-black dark:group-hover:text-gray-300 transition-colors duration-200 line-clamp-2">
-                                    {{ project.title }}
-                                </h3>
+                            <!-- Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                                <!-- Description -->
-                                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 flex-grow line-clamp-2">
-                                    {{ project.description }}
-                                </p>
+                            <!-- Index number -->
+                            <span class="absolute top-4 left-4 text-xs font-bold tracking-widest text-white/90 mix-blend-difference">
+                                {{ idx + 1 < 10 ? '0' + (idx + 1) : idx + 1 }}
+                            </span>
 
-                                <!-- Technologies -->
-                                <div class="flex flex-wrap gap-1.5 mb-4">
-                                    <span 
-                                        *ngFor="let tech of project.technologies | slice:0:3"
-                                        class="px-2 py-1 text-xs font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-zinc-800 rounded-md">
-                                        {{ tech }}
-                                    </span>
-                                    <span *ngIf="project.technologies.length > 3" class="px-2 py-1 text-xs font-medium text-gray-500 dark:text-gray-400">
-                                        +{{ project.technologies.length - 3 }}
-                                    </span>
-                                </div>
+                            <!-- Category chip -->
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1.5 text-[11px] font-semibold tracking-wide text-white bg-black/60 backdrop-blur-md rounded-full border border-white/15">
+                                    {{ project.category }}
+                                </span>
+                            </div>
 
-                                <!-- Link -->
-                                <div class="inline-flex items-center text-gray-900 dark:text-white font-semibold text-sm group-hover:gap-2 gap-1.5 transition-all">
-                                    View Details
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                                    </svg>
-                                </div>
+                            <!-- Reveal arrow -->
+                            <div class="absolute bottom-4 right-4 flex items-center justify-center w-11 h-11 rounded-full bg-white text-gray-900 shadow-lg translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
                             </div>
                         </div>
-                    </ng-container>
+
+                        <!-- Content -->
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-1 transition-colors duration-200">
+                                {{ project.title }}
+                            </h3>
+
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed flex-grow line-clamp-2">
+                                {{ project.description }}
+                            </p>
+
+                            <!-- View details -->
+                            <div class="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold text-gray-900 dark:text-white">
+                                View details
+                                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Bottom accent line -->
+                        <div class="absolute bottom-0 left-0 right-0 h-[3px] bg-gray-900 dark:bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    </article>
                 </ng-container>
             </div>
         </div>
 
         <!-- Empty State -->
-        <div *ngIf="!isLoading && filteredProjects.length === 0" class="text-center py-20 max-w-7xl mx-auto">
-            <div class="inline-flex items-center justify-center w-16 h-16 bg-slate-100 dark:bg-slate-800 rounded-full mb-4">
-                <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 2a10 10 0 100 20 10 10 0 000-20z"></path>
+        <div *ngIf="!isLoading && filteredProjects.length === 0" class="text-center py-24">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-zinc-900 rounded-2xl mb-5">
+                <svg class="w-8 h-8 text-gray-400 dark:text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
             </div>
-            <p class="text-slate-500 dark:text-slate-400 text-lg">No projects found in this category.</p>
+            <p class="text-gray-500 dark:text-gray-400 text-lg font-medium">No projects found in this category.</p>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
-<div 
+<div
     *ngIf="isModalOpen && selectedProject"
-    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm animate-fade-in"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md animate-fade-in"
     (click)="closeModal()">
-    
-    <div 
-        class="relative bg-white dark:bg-slate-900 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-slate-200 dark:border-slate-800 animate-scale-in"
+
+    <div
+        class="relative bg-white dark:bg-zinc-950 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200 dark:border-zinc-800 animate-scale-in"
         (click)="$event.stopPropagation()">
-        
+
         <!-- Close Button -->
-        <button 
+        <button
             (click)="closeModal()"
-            class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors duration-200">
-            <svg class="w-5 h-5 text-slate-600 dark:text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            aria-label="Close"
+            class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur border border-gray-200 dark:border-zinc-700 hover:bg-gray-900 hover:text-white dark:hover:bg-white dark:hover:text-gray-900 text-gray-700 dark:text-gray-300 transition-all duration-200">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
 
         <!-- Modal Image -->
-        <div class="relative h-72 overflow-hidden">
+        <div class="relative h-64 sm:h-80 overflow-hidden bg-gray-100 dark:bg-zinc-900">
             <img
                 *ngIf="selectedProject.image"
                 [src]="selectedProject.image"
@@ -247,49 +254,55 @@
             <div *ngIf="!selectedProject.image" class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-black">
                 <span class="px-6 text-center text-3xl md:text-4xl font-black uppercase tracking-tight text-white/90">{{ selectedProject.title }}</span>
             </div>
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/20 to-transparent"></div>
-            
-            <!-- Category on Image -->
-            <div class="absolute bottom-4 left-6">
-                <span class="px-3 py-1.5 text-sm font-medium text-white bg-white/20 backdrop-blur-md rounded-lg border border-white/20">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+            <!-- Title block on image -->
+            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+                <span class="inline-block px-3 py-1.5 text-[11px] font-semibold tracking-wide text-white bg-white/15 backdrop-blur-md rounded-full border border-white/20 mb-3">
                     {{ selectedProject.category }}
                 </span>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-tight text-white drop-shadow-lg">
+                    {{ selectedProject.title }}
+                </h2>
             </div>
         </div>
 
         <!-- Modal Content -->
-        <div class="p-6 md:p-8">
-            <!-- Title -->
-            <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                {{ selectedProject.title }}
-            </h2>
-
+        <div class="p-6 sm:p-8">
             <!-- Description -->
-            <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                {{ selectedProject.description }}
+            <p class="text-gray-600 dark:text-gray-400 mb-8 leading-relaxed text-base">
+                {{ selectedProject.description || 'A digital product crafted by ZYPHERX.' }}
             </p>
 
             <!-- Technologies -->
-            <div class="mb-6">
-                <h3 class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">Tech Stack</h3>
+            <div class="mb-8">
+                <h3 class="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-3">Tech Stack</h3>
                 <div class="flex flex-wrap gap-2">
-                    <span 
+                    <span
                         *ngFor="let tech of selectedProject.technologies"
-                        class="px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
+                        class="px-3.5 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-zinc-800 rounded-full border border-gray-200 dark:border-zinc-700">
                         {{ tech }}
                     </span>
                 </div>
             </div>
 
             <!-- Action Button -->
-            <a 
+            <a
+                *ngIf="selectedProject.link && selectedProject.link !== '#'"
                 [href]="selectedProject.link"
-                class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200">
-                Visit Project
-                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group inline-flex items-center gap-3 px-7 py-3.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold rounded-full hover:bg-gray-800 dark:hover:bg-gray-100 transition-all duration-300">
+                Visit Live Site
+                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7V17"></path>
                 </svg>
             </a>
+            <span
+                *ngIf="!selectedProject.link || selectedProject.link === '#'"
+                class="inline-flex items-center gap-2 px-7 py-3.5 bg-gray-100 dark:bg-zinc-900 text-gray-400 dark:text-zinc-600 font-semibold rounded-full cursor-not-allowed">
+                Coming Soon
+            </span>
         </div>
     </div>
 </div>

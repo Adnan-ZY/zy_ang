@@ -11,3 +11,16 @@ body {
     background-color: #000000;
     color: #f9fafb;
 }
+
+/* Reusable boxy grid background (used across inner pages) */
+.boxy-grid-bg {
+    background-image:
+        linear-gradient(to right, currentColor 1px, transparent 1px),
+        linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 56px 56px;
+    color: #0f172a;
+}
+
+.dark .boxy-grid-bg {
+    color: #ffffff;
+}

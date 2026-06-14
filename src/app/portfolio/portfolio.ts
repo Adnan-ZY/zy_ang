@@ -1,87 +1,25 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
-import { delay } from 'rxjs/operators';
-
-interface PortfolioItem {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  category: string;
-  technologies: string[];
-  link: string;
-}
 
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './portfolio.html',
   styleUrl: './portfolio.css'
 })
-export class PortfolioComponent implements OnInit {
-  portfolioItems: PortfolioItem[] = [];
-  filteredItems: PortfolioItem[] = [];
-  categories: string[] = ['All'];
-  selectedCategory: string = 'All';
-  selectedItem: PortfolioItem | null = null;
-  isModalOpen: boolean = false;
-  isLoading: boolean = true;
+export class PortfolioComponent {
+  name = 'Mr Adnan';
+  role = 'Founder & CEO';
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef, private titleService: Title, private metaService: Meta) {
-    this.titleService.setTitle('Portfolio - ZYPHERX Digital Agency | Our Successful Projects');
-    this.metaService.updateTag({ name: 'description', content: 'Explore ZYPHERX\'s portfolio of successful digital projects. View our work in web design, SEO, digital marketing, and web development.' });
-  }
+  about = `ZYPHERX is a software studio founded and led by Mr Adnan. Built on strong engineering fundamentals and a focus on clean, efficient code, the team designs and develops web applications for startups and growing businesses. ZYPHERX thrives in collaborative, team-oriented environments, pairing solid problem-solving with a fast, detail-focused approach that turns ideas into reliable products that ship.`;
 
-  ngOnInit() {
-    this.loadPortfolio();
-  }
+  values = ['Clean Code', 'Problem Solving', 'Collaboration', 'Reliability', 'Attention to Detail', 'Fast Delivery'];
 
-  loadPortfolio() {
-    this.isLoading = true;
-    this.http.get<PortfolioItem[]>('assets/data/projects.json').pipe(
-      delay(1000)
-    ).subscribe({
-      next: (data) => {
-        this.portfolioItems = data;
-        this.filteredItems = [...data];
-        this.extractCategories();
-        this.isLoading = false;
-        this.cdr.detectChanges();
-      },
-      error: () => {
-        this.portfolioItems = [];
-        this.filteredItems = [];
-        this.isLoading = false;
-      }
-    });
-  }
-
-  extractCategories() {
-    const cats = new Set(this.portfolioItems.map(p => p.category));
-    this.categories = ['All', ...Array.from(cats)];
-  }
-
-  filterByCategory(category: string) {
-    this.selectedCategory = category;
-    if (category === 'All') {
-      this.filteredItems = this.portfolioItems;
-    } else {
-      this.filteredItems = this.portfolioItems.filter(p => p.category === category);
-    }
-  }
-
-  openModal(item: PortfolioItem) {
-    this.selectedItem = item;
-    this.isModalOpen = true;
-    document.body.style.overflow = 'hidden';
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
-    this.selectedItem = null;
-    document.body.style.overflow = '';
+  constructor(private titleService: Title, private metaService: Meta) {
+    this.titleService.setTitle('About - ZYPHERX | Software Studio');
+    this.metaService.updateTag({ name: 'description', content: 'ZYPHERX is a software studio founded by Mr Adnan, building clean, efficient web applications for startups and growing businesses.' });
   }
 }

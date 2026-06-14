@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   navItems = [
     { label: 'Projects', link: '/projects' },
     { label: 'Services', link: '/services' },
-    { label: 'Portfolio', link: '/portfolio' },
+    { label: 'About', link: '/portfolio' },
     { label: 'Contact', link: '/contact' }
   ];
 

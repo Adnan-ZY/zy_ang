@@ -31,22 +31,15 @@ export class ContactComponent {
     {
       icon: 'email',
       title: 'Email Us',
-      value: 'madnanhz42@gmail.com',
-      link: 'mailto:madnanhz42@gmail.com'
+      value: 'zypherhe@gmail.com',
+      link: 'mailto:zypherhe@gmail.com'
     },
     {
-      icon: 'phone',
-      title: 'Call Us',
+      icon: 'whatsapp',
+      title: 'Drop a text',
       value: '+92 326 1707830',
-      link: 'tel:+923261707830'
+      link: 'https://wa.me/923261707830'
     }
-  ];
-
-  socialLinks = [
-    { name: 'Twitter', icon: 'twitter', url: '#' },
-    { name: 'LinkedIn', icon: 'linkedin', url: '#' },
-    { name: 'GitHub', icon: 'github', url: '#' },
-    { name: 'Instagram', icon: 'instagram', url: '#' }
   ];
 
   // Free email delivery via FormSubmit.co — no API key/signup required.
